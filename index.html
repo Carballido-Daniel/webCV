@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daniel Carballido · Observability Engineer</title>
+  <meta name="description" content="Daniel Carballido — Observability Engineer en Barcelona. OpenTelemetry, Grafana (Loki/Tempo/Prometheus), Dynatrace, Kubernetes, Azure y más de 20 años en monitorización IT." />
+  <meta property="og:title" content="Daniel Carballido · Observability Engineer" />
+  <meta property="og:description" content="Observabilidad, monitorización y arquitectura de pipelines en Kubernetes y Azure." />
+  <meta property="og:type" content="profile" />
+  <meta property="og:image" content="assets/foto.jpg" />
+  <meta name="theme-color" content="#0b0f14" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+  <a class="skip" href="#main">Saltar al contenido</a>
+
+  <!-- ============ CABECERA ============ -->
+  <header class="hero">
+    <div class="hero__grid" aria-hidden="true"></div>
+    <div class="wrap hero__inner">
+      <div class="avatar">
+        <img src="assets/foto.jpg" alt="Foto de Daniel Carballido" width="180" height="180"
+             onerror="this.remove()" />
+        <span class="avatar__fallback" aria-hidden="true">DC</span>
+      </div>
+
+      <div class="hero__text">
+        <p class="eyebrow"><span class="pulse" aria-hidden="true"></span> Disponible · Barcelona</p>
+        <h1>Daniel Carballido</h1>
+        <p class="role">Observability Engineer</p>
+
+        <ul class="contact">
+          <li><a href="mailto:d.carballido.ulloa@gmail.com">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm8 7.2L4.6 7H19.4L12 12.2ZM5 9v9h14V9l-7 4.9L5 9Z"/></svg>
+            d.carballido.ulloa@gmail.com</a></li>
+          <li><a href="https://www.linkedin.com/in/carballido-daniel/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.5h4V21H3V9.5Zm7 0h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.2c0-1.24-.02-2.84-1.73-2.84-1.73 0-2 1.35-2 2.75V21h-4V9.5Z"/></svg>
+            LinkedIn</a></li>
+          <li><span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 1 7 7c0 5.25-7 13-7 13S5 14.25 5 9a7 7 0 0 1 7-7Zm0 4.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Z"/></svg>
+            Barcelona, 08006</span></li>
+        </ul>
+
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#experiencia">Ver experiencia</a>
+          <a class="btn" href="assets/CV_Dani_Carballido.pdf" download>Descargar CV (PDF)</a>
+        </div>
+      </div>
+    </div>
+
+    <dl class="wrap stats">
+      <div><dt>+20</dt><dd>años en IT</dd></div>
+      <div><dt>+15</dt><dd>clientes monitorizados</dd></div>
+      <div><dt>K8s · Azure</dt><dd>cloud &amp; on‑premise</dd></div>
+      <div><dt>OTel</dt><dd>logs · métricas · trazas</dd></div>
+    </dl>
+  </header>
+
+  <nav class="nav" aria-label="Secciones">
+    <div class="wrap nav__inner">
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#experiencia">Experiencia</a>
+      <a href="#tecnologias">Tecnologías</a>
+      <a href="#educacion">Educación</a>
+      <a href="#otros">Más</a>
+    </div>
+  </nav>
+
+  <main id="main" class="wrap layout">
+
+    <!-- ============ SOBRE MÍ ============ -->
+    <section id="sobre-mi" class="section reveal">
+      <h2 class="section__title"><span>01</span> Sobre mí</h2>
+      <p class="lead">
+        Me define una intensa curiosidad técnica, un pensamiento altamente lógico y una gran
+        capacidad de aprendizaje autodidacta. Disfruto investigando sistemas complejos hasta
+        dominarlos por completo, aportando soluciones creativas, rigor metodológico y un enfoque
+        orientado a la excelencia y la calidad técnica.
+      </p>
+      <ul class="chips chips--skills">
+        <li>Pensamiento analítico y causa raíz</li>
+        <li>Aprendizaje autónomo y rigor</li>
+        <li>Troubleshooting técnico avanzado</li>
+        <li>Gestión de proyectos IT</li>
+        <li>Orientación a resultados</li>
+      </ul>
+    </section>
+
+    <!-- ============ EXPERIENCIA ============
+         Cada empleo es un <article class="job">. Para ampliar la información,
+         añade párrafos, listas o <ul class="chips"> dentro de <div class="job__more">.
+    -->
+    <section id="experiencia" class="section reveal">
+      <div class="section__head">
+        <h2 class="section__title"><span>02</span> Experiencia</h2>
+        <button class="btn btn--ghost" type="button" id="toggle-all" aria-pressed="false">Expandir todo</button>
+      </div>
+
+      <ol class="timeline">
+
+        <!-- AUBAY -->
+        <li>
+          <article class="job is-current">
+            <button class="job__head" type="button" aria-expanded="false">
+              <span class="job__dates">2022 — <strong>Actualidad</strong></span>
+              <span class="job__title">Observability Engineer</span>
+              <span class="job__company">AUBAY</span>
+              <span class="job__summary">Pipelines de observabilidad en Kubernetes con OTel y migración de monitorización a Azure PaaS.</span>
+              <span class="job__chev" aria-hidden="true"></span>
+            </button>
+            <div class="job__body">
+              <div class="job__more">
+                <h3>Banco Crypto <small>2026</small></h3>
+                <ul>
+                  <li>Arquitectura y despliegue de pipelines de observabilidad en Kubernetes (K8s).</li>
+                  <li>Implantación del colector OpenTelemetry (trazas) integrado con Prometheus, Loki y Tempo.</li>
+                  <li>Dashboards centralizados en Grafana con correlación log‑to‑trace.</li>
+                </ul>
+                <h3>Aseguradora multinacional <small>2022 — 2026</small></h3>
+                <ul>
+                  <li>Migración de la monitorización de on‑premise a Azure PaaS.</li>
+                  <li>Automatización del despliegue de agentes con Ansible.</li>
+                  <li>Integración de Dynatrace, Grafana y Pandora FMS.</li>
+                </ul>
+                <ul class="chips">
+                  <li>Kubernetes</li><li>OpenTelemetry</li><li>Prometheus</li><li>Loki</li><li>Tempo</li>
+                  <li>Grafana</li><li>Azure PaaS</li><li>Ansible</li><li>Dynatrace</li><li>Pandora FMS</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+        </li>
+
+        <!-- SOPRA STERIA / CAPGEMINI -->
+        <li>
+          <article class="job">
+            <button class="job__head" type="button" aria-expanded="false">
+              <span class="job__dates">2018 — 2022</span>
+              <span class="job__title">Observability Engineer</span>
+              <span class="job__company">SOPRA STERIA / CAPGEMINI</span>
+              <span class="job__summary">Herramientas propias de observabilidad, sondas sintéticas y dashboards consolidados en Grafana.</span>
+              <span class="job__chev" aria-hidden="true"></span>
+            </button>
+            <div class="job__body">
+              <div class="job__more">
+                <h3>Arquitectura on‑premise &amp; scripting</h3>
+                <ul>
+                  <li>Diseño de herramientas propias de observabilidad y conectores a medida en Python, Perl, PowerShell y Java.</li>
+                </ul>
+                <h3>Sondas &amp; métricas sintéticas</h3>
+                <ul>
+                  <li>Despliegue de sondas con JMeter y VuGen para medir la experiencia de usuario.</li>
+                  <li>Ingesta de datos en Elasticsearch desde CheckMK y JMeter.</li>
+                </ul>
+                <h3>Integración &amp; visualización</h3>
+                <ul>
+                  <li>Consolidación de datos cruzados (APM, OBM, Atrium y SQL Server) expuestos en dashboards dinámicos de Grafana.</li>
+                </ul>
+                <ul class="chips">
+                  <li>Python</li><li>Perl</li><li>PowerShell</li><li>Java</li><li>JMeter</li><li>VuGen</li>
+                  <li>Elasticsearch</li><li>CheckMK</li><li>OBM</li><li>SQL Server</li><li>Grafana</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+        </li>
+
+        <!-- FREELANCE -->
+        <li>
+          <article class="job">
+            <button class="job__head" type="button" aria-expanded="false">
+              <span class="job__dates">2018</span>
+              <span class="job__title">Project Manager Monitoring Tools</span>
+              <span class="job__company">FREELANCE</span>
+              <span class="job__summary">Dirección de un proyecto de monitorización distribuida, de la arquitectura al equipo técnico.</span>
+              <span class="job__chev" aria-hidden="true"></span>
+            </button>
+            <div class="job__body">
+              <div class="job__more">
+                <ul>
+                  <li>Ejecución de proyecto de monitorización distribuida.</li>
+                  <li>Desarrollo de la arquitectura, coordinación de las fases del proyecto y del equipo técnico.</li>
+                </ul>
+                <ul class="chips"><li>Gestión de proyectos</li><li>Arquitectura</li><li>Monitorización distribuida</li></ul>
+              </div>
+            </div>
+          </article>
+        </li>
+
+        <!-- ABAST -->
+        <li>
+          <article class="job">
+            <button class="job__head" type="button" aria-expanded="false">
+              <span class="job__dates">2014 — 2018</span>
+              <span class="job__title">Monitoring Engineer</span>
+              <span class="job__company">ABAST SYSTEMS &amp; SOLUTIONS</span>
+              <span class="job__summary">Implementación de proyectos de monitorización IT en más de 15 clientes.</span>
+              <span class="job__chev" aria-hidden="true"></span>
+            </button>
+            <div class="job__body">
+              <div class="job__more">
+                <ul>
+                  <li>Gestión e implementación de proyectos con IT monitoring tools.</li>
+                  <li>Implementación y desarrollo de proyectos de monitorización en más de 15 clientes.</li>
+                </ul>
+                <p class="muted">Más información sobre estos proyectos en mi perfil de LinkedIn.</p>
+              </div>
+            </div>
+          </article>
+        </li>
+
+        <!-- ALO-SYSTEMS -->
+        <li>
+          <article class="job">
+            <button class="job__head" type="button" aria-expanded="false">
+              <span class="job__dates">2012 — 2014</span>
+              <span class="job__title">Técnico Monitorización y Helpdesk</span>
+              <span class="job__company">ALO‑SYSTEMS</span>
+              <span class="job__summary">Herramientas de monitorización y soporte N2 destinado en cliente.</span>
+              <span class="job__chev" aria-hidden="true"></span>
+            </button>
+            <div class="job__body">
+              <div class="job__more">
+                <ul>
+                  <li>Desarrollo y mantenimiento de herramientas de monitorización.</li>
+                  <li>Destinado en cliente dando soporte a usuarios como técnico de soporte N2.</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+        </li>
+
+        <!-- VARIAS EMPRESAS -->
+        <li>
+          <article class="job">
+            <button class="job__head" type="button" aria-expanded="false">
+              <span class="job__dates">2004 — 2012</span>
+              <span class="job__title">Técnico Informático</span>
+              <span class="job__company">VARIAS EMPRESAS</span>
+              <span class="job__summary">Instalación, mantenimiento y soporte de equipos informáticos.</span>
+              <span class="job__chev" aria-hidden="true"></span>
+            </button>
+            <div class="job__body">
+              <div class="job__more">
+                <ul>
+                  <li>Instalación, mantenimiento y soporte de equipos informáticos.</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ============ TECNOLOGÍAS ============ -->
+    <section id="tecnologias" class="section reveal">
+      <h2 class="section__title"><span>03</span> Tecnologías</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Observabilidad &amp; Cloud</h3>
+          <ul class="chips">
+            <li>Dynatrace</li><li>OpenTelemetry</li><li>Grafana</li><li>Loki</li><li>Tempo</li>
+            <li>Prometheus</li><li>ELK</li><li>Kubernetes</li><li>Azure PaaS</li><li>Ansible</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Monitorización &amp; Sondas</h3>
+          <ul class="chips">
+            <li>CheckMK</li><li>Nagios</li><li>Pandora FMS</li><li>OBM</li><li>JMeter</li>
+            <li>VuGen</li><li>On‑Premise</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Dev &amp; Datos</h3>
+          <ul class="chips">
+            <li>Python</li><li>Perl</li><li>PowerShell</li><li>Java</li>
+            <li>Elasticsearch</li><li>SQL Server</li><li>Oracle</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ EDUCACIÓN ============ -->
+    <section id="educacion" class="section reveal">
+      <h2 class="section__title"><span>04</span> Educación</h2>
+      <ul class="edu">
+        <li>
+          <span class="edu__date">2026 — 2027</span>
+          <div><strong>Especialización IA / Big Data</strong><span>ITIC Barcelona</span></div>
+          <em class="tag">En curso</em>
+        </li>
+        <li>
+          <span class="edu__date">2024 — 2026</span>
+          <div><strong>Técnico Superior en Desarrollo de Aplicaciones Multiplataforma (DAM)</strong><span>Salesians Sarrià</span></div>
+        </li>
+        <li>
+          <span class="edu__date">2017</span>
+          <div><strong>ITIL Foundation Certification</strong><span>Axelos</span></div>
+        </li>
+        <li>
+          <span class="edu__date">2004</span>
+          <div><strong>Auxiliar técnico informático</strong><span>Can Serra</span></div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ============ IDIOMAS / OTROS ============ -->
+    <section id="otros" class="section reveal">
+      <h2 class="section__title"><span>05</span> Idiomas y otros datos</h2>
+      <div class="cards cards--2">
+        <div class="card">
+          <h3>Idiomas</h3>
+          <ul class="langs">
+            <li><span>Catalán</span><span class="meter" style="--v:100%"></span><small>Nativo</small></li>
+            <li><span>Castellano</span><span class="meter" style="--v:100%"></span><small>Nativo</small></li>
+            <li><span>Inglés</span><span class="meter" style="--v:35%"></span><small>Técnico básico</small></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Otros datos</h3>
+          <ul class="plain">
+            <li>Carnet de conducir B y A</li>
+            <li>Vehículo propio</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>© <span id="year">2026</span> Daniel Carballido · <a href="mailto:d.carballido.ulloa@gmail.com">d.carballido.ulloa@gmail.com</a></p>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>
