@@ -43,3 +43,27 @@ vercel --prod   # producción
 - **GitHub Pages**: Settings → Pages → Deploy from branch `main` / root.
 - **Netlify**: arrastra la carpeta a https://app.netlify.com/drop
 - **Cloudflare Pages**: conecta el repo, sin build command.
+
+## Observabilidad (Grafana Cloud + Faro / OpenTelemetry)
+`js/observability.js` usa **Grafana Faro** (SDK web basado en OpenTelemetry) para enviar a Grafana Cloud:
+sesiones y visitas, dispositivo / navegador / SO / resolución / idioma, procedencia, Web Vitals
+(LCP, FCP, INP, CLS, TTFB), tiempos de carga (Navigation Timing), errores JS, trazas OTel e
+interacciones (empleos desplegados, clics en PDF / LinkedIn / email, secciones vistas).
+
+Mientras `FARO_URL` esté vacío no se carga nada. En local (`localhost`) tampoco envía datos,
+salvo que abras la web con `?faro=1`.
+
+### Puesta en marcha
+1. Crea una cuenta gratuita en https://grafana.com (plan Free).
+2. En tu stack: **Observability → Frontend → Create new app**. Nombre `webcv`, y en
+   *CORS allowed origins* el dominio de la web (p. ej. `https://carballido-daniel.github.io`).
+3. Copia la URL del collector (`https://faro-collector-....grafana.net/collect/...`) y pégala en
+   `FARO_URL` dentro de `js/observability.js`. Esa URL es pública por diseño: no es un secreto.
+4. Publica la web y visítala. En minutos verás datos en la app *Frontend Observability*.
+
+### Dashboard propio
+`grafana/dashboard-webcv.json` → en Grafana: **Dashboards → New → Import**, sube el fichero y elige
+el datasource Loki de tu stack (`grafanacloud-<stack>-logs`).
+
+Si algún panel sale vacío, abre **Explore** con ese Loki, busca tus logs de Faro y ajusta la
+variable **Selector de logs** del dashboard (por defecto `{app_name="webcv"}`) a las etiquetas reales.
