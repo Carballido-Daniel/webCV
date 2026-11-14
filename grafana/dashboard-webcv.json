@@ -1,1723 +1,1723 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_LOKI",
-      "label": "Loki",
-      "description": "Loki de Grafana Cloud (grafanacloud-*-logs)",
-      "type": "datasource",
-      "pluginId": "loki",
-      "pluginName": "Loki"
-    }
-  ],
-  "__requires": [
-    {
-      "type": "datasource",
-      "id": "loki",
-      "name": "Loki",
-      "version": "1.0.0"
-    }
-  ],
-  "title": "CV web · Observabilidad (Faro)",
-  "uid": "webcv-faro",
-  "tags": [
-    "faro",
-    "rum",
-    "otel",
-    "webcv"
-  ],
-  "timezone": "browser",
-  "editable": true,
-  "schemaVersion": 39,
-  "time": {
-    "from": "now-7d",
-    "to": "now"
-  },
-  "refresh": "5m",
-  "templating": {
-    "list": [
-      {
-        "name": "selector",
-        "label": "Selector de logs",
-        "type": "textbox",
-        "query": "{app_name=\"webcv\"}",
-        "current": {
-          "text": "{app_name=\"webcv\"}",
-          "value": "{app_name=\"webcv\"}"
-        },
-        "description": "Selector de stream de Loki con los datos de Faro. Ajústalo si en Explore tus logs tienen otras etiquetas."
-      }
-    ]
-  },
-  "annotations": {
-    "list": []
-  },
-  "panels": [
-    {
-      "type": "row",
-      "title": "Resumen",
-      "id": 1,
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 0
-      },
-      "panels": []
+ "__inputs": [
+  {
+   "name": "DS_LOKI",
+   "label": "Loki",
+   "description": "Loki de Grafana Cloud (grafanacloud-*-logs)",
+   "type": "datasource",
+   "pluginId": "loki",
+   "pluginName": "Loki"
+  }
+ ],
+ "__requires": [
+  {
+   "type": "datasource",
+   "id": "loki",
+   "name": "Loki",
+   "version": "1.0.0"
+  }
+ ],
+ "title": "CV web · Observabilidad (Faro)",
+ "uid": "webcv-faro",
+ "tags": [
+  "faro",
+  "rum",
+  "otel",
+  "webcv"
+ ],
+ "timezone": "browser",
+ "editable": true,
+ "schemaVersion": 39,
+ "time": {
+  "from": "now-7d",
+  "to": "now"
+ },
+ "refresh": "5m",
+ "templating": {
+  "list": [
+   {
+    "name": "selector",
+    "label": "Selector de logs",
+    "type": "textbox",
+    "query": "{app_id=\"378\"}",
+    "current": {
+     "text": "{app_id=\"378\"}",
+     "value": "{app_id=\"378\"}"
     },
-    {
-      "type": "stat",
-      "title": "Visitas",
-      "id": 2,
-      "datasource": {
-        "type": "loki",
-        "uid": "${DS_LOKI}"
-      },
-      "description": "Páginas vistas en el rango seleccionado",
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 0,
-        "y": 1
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "sum(count_over_time($selector | logfmt | kind=\"event\" | event_name=\"page_view\" [$__range]))",
-          "legendFormat": "",
-          "queryType": "instant",
-          "editorMode": "code"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short",
-          "decimals": 0,
-          "noValue": "0",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "color": {
-            "mode": "thresholds"
-          }
-        },
-        "overrides": []
-      },
-      "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "colorMode": "value",
-        "graphMode": "none",
-        "textMode": "value",
-        "justifyMode": "center",
-        "orientation": "auto"
-      }
-    },
-    {
-      "type": "stat",
-      "title": "Visitantes (sesiones únicas)",
-      "id": 3,
-      "datasource": {
-        "type": "loki",
-        "uid": "${DS_LOKI}"
-      },
-      "description": "",
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 6,
-        "y": 1
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "count(sum by (session_id) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"page_view\" [$__range])))",
-          "legendFormat": "",
-          "queryType": "instant",
-          "editorMode": "code"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short",
-          "decimals": 0,
-          "noValue": "0",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "color": {
-            "mode": "thresholds"
-          }
-        },
-        "overrides": []
-      },
-      "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "colorMode": "value",
-        "graphMode": "none",
-        "textMode": "value",
-        "justifyMode": "center",
-        "orientation": "auto"
-      }
-    },
-    {
-      "type": "stat",
-      "title": "Errores JS",
-      "id": 4,
-      "datasource": {
-        "type": "loki",
-        "uid": "${DS_LOKI}"
-      },
-      "description": "",
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 12,
-        "y": 1
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "sum(count_over_time($selector | logfmt | kind=\"exception\" [$__range]))",
-          "legendFormat": "",
-          "queryType": "instant",
-          "editorMode": "code"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short",
-          "decimals": 0,
-          "noValue": "0",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 1
-              }
-            ]
-          },
-          "color": {
-            "mode": "thresholds"
-          }
-        },
-        "overrides": []
-      },
-      "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "colorMode": "value",
-        "graphMode": "none",
-        "textMode": "value",
-        "justifyMode": "center",
-        "orientation": "auto"
-      }
-    },
-    {
-      "type": "stat",
-      "title": "Tiempo de carga p75",
-      "id": 5,
-      "datasource": {
-        "type": "loki",
-        "uid": "${DS_LOKI}"
-      },
-      "description": "Percentil 75 de loadEventEnd (Navigation Timing)",
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 18,
-        "y": 1
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "quantile_over_time(0.75, $selector | logfmt | kind=\"measurement\" | type=\"page_load\" | load_ms!=\"\" | unwrap load_ms | __error__=\"\" [$__range]) by ()",
-          "legendFormat": "",
-          "queryType": "instant",
-          "editorMode": "code"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "ms",
-          "decimals": 0,
-          "noValue": "0",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "orange",
-                "value": 2500
-              },
-              {
-                "color": "red",
-                "value": 4000
-              }
-            ]
-          },
-          "color": {
-            "mode": "thresholds"
-          }
-        },
-        "overrides": []
-      },
-      "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "colorMode": "value",
-        "graphMode": "none",
-        "textMode": "value",
-        "justifyMode": "center",
-        "orientation": "auto"
-      }
-    },
-    {
-      "type": "row",
-      "title": "Tráfico",
-      "id": 6,
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 5
-      },
-      "panels": []
-    },
-    {
-      "type": "timeseries",
-      "title": "Visitas diarias",
-      "id": 7,
-      "datasource": {
-        "type": "loki",
-        "uid": "${DS_LOKI}"
-      },
-      "description": "",
-      "gridPos": {
-        "h": 8,
-        "w": 16,
-        "x": 0,
-        "y": 6
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "sum(count_over_time($selector | logfmt | kind=\"event\" | event_name=\"page_view\" [$__interval]))",
-          "legendFormat": "Visitas",
-          "queryType": "range",
-          "editorMode": "code"
-        },
-        {
-          "refId": "B",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "count(sum by (session_id) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"page_view\" [$__interval])))",
-          "legendFormat": "Visitantes",
-          "queryType": "range",
-          "editorMode": "code"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short",
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "drawStyle": "bars",
-            "fillOpacity": 60,
-            "lineWidth": 2,
-            "showPoints": "never",
-            "spanNulls": true,
-            "barAlignment": 0,
-            "stacking": {
-              "mode": "none"
-            }
-          }
-        },
-        "overrides": []
-      },
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "interval": "1d"
-    },
-    {
-      "type": "bargauge",
-      "title": "Procedencia (referrer)",
-      "id": 8,
-      "datasource": {
-        "type": "loki",
-        "uid": "${DS_LOKI}"
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 16,
-        "y": 6
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "topk(10, sum by (event_data_referrer) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"page_view\" [$__range])))",
-          "legendFormat": "{{event_data_referrer}}",
-          "queryType": "instant",
-          "editorMode": "code"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "continuous-GrYlRd"
-          },
-          "min": 0,
-          "unit": "short",
-          "decimals": 0
-        },
-        "overrides": []
-      },
-      "options": {
-        "orientation": "horizontal",
-        "displayMode": "gradient",
-        "showUnfilled": true,
-        "valueMode": "color",
-        "namePlacement": "left",
-        "sizing": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        }
-      }
-    },
-    {
-      "type": "row",
-      "title": "Dispositivos",
-      "id": 9,
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 14
-      },
-      "panels": []
-    },
-    {
-      "type": "piechart",
-      "title": "Tipo de dispositivo",
-      "id": 10,
-      "datasource": {
-        "type": "loki",
-        "uid": "${DS_LOKI}"
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 0,
-        "y": 15
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "sum by (event_data_device_type) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"page_view\" [$__range]))",
-          "legendFormat": "{{event_data_device_type}}",
-          "queryType": "instant",
-          "editorMode": "code"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          }
-        },
-        "overrides": []
-      },
-      "options": {
-        "pieType": "donut",
-        "displayLabels": [
-          "percent"
-        ],
-        "legend": {
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "value"
-          ]
-        },
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      }
-    },
-    {
-      "type": "piechart",
-      "title": "Navegador",
-      "id": 11,
-      "datasource": {
-        "type": "loki",
-        "uid": "${DS_LOKI}"
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 8,
-        "y": 15
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "sum by (browser_name) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"page_view\" [$__range]))",
-          "legendFormat": "{{browser_name}}",
-          "queryType": "instant",
-          "editorMode": "code"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          }
-        },
-        "overrides": []
-      },
-      "options": {
-        "pieType": "donut",
-        "displayLabels": [
-          "percent"
-        ],
-        "legend": {
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "value"
-          ]
-        },
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      }
-    },
-    {
-      "type": "piechart",
-      "title": "Sistema operativo",
-      "id": 12,
-      "datasource": {
-        "type": "loki",
-        "uid": "${DS_LOKI}"
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 16,
-        "y": 15
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "sum by (browser_os) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"page_view\" [$__range]))",
-          "legendFormat": "{{browser_os}}",
-          "queryType": "instant",
-          "editorMode": "code"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          }
-        },
-        "overrides": []
-      },
-      "options": {
-        "pieType": "donut",
-        "displayLabels": [
-          "percent"
-        ],
-        "legend": {
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "value"
-          ]
-        },
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      }
-    },
-    {
-      "type": "bargauge",
-      "title": "Resolución de pantalla",
-      "id": 13,
-      "datasource": {
-        "type": "loki",
-        "uid": "${DS_LOKI}"
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 0,
-        "y": 23
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "topk(10, sum by (event_data_screen) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"page_view\" [$__range])))",
-          "legendFormat": "{{event_data_screen}}",
-          "queryType": "instant",
-          "editorMode": "code"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "continuous-GrYlRd"
-          },
-          "min": 0,
-          "unit": "short",
-          "decimals": 0
-        },
-        "overrides": []
-      },
-      "options": {
-        "orientation": "horizontal",
-        "displayMode": "gradient",
-        "showUnfilled": true,
-        "valueMode": "color",
-        "namePlacement": "left",
-        "sizing": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        }
-      }
-    },
-    {
-      "type": "piechart",
-      "title": "Idioma",
-      "id": 14,
-      "datasource": {
-        "type": "loki",
-        "uid": "${DS_LOKI}"
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 8,
-        "y": 23
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "sum by (event_data_lang) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"page_view\" [$__range]))",
-          "legendFormat": "{{event_data_lang}}",
-          "queryType": "instant",
-          "editorMode": "code"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          }
-        },
-        "overrides": []
-      },
-      "options": {
-        "pieType": "donut",
-        "displayLabels": [
-          "percent"
-        ],
-        "legend": {
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "value"
-          ]
-        },
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      }
-    },
-    {
-      "type": "piechart",
-      "title": "Tema claro / oscuro",
-      "id": 15,
-      "datasource": {
-        "type": "loki",
-        "uid": "${DS_LOKI}"
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 16,
-        "y": 23
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "sum by (event_data_color_scheme) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"page_view\" [$__range]))",
-          "legendFormat": "{{event_data_color_scheme}}",
-          "queryType": "instant",
-          "editorMode": "code"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          }
-        },
-        "overrides": []
-      },
-      "options": {
-        "pieType": "donut",
-        "displayLabels": [
-          "percent"
-        ],
-        "legend": {
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "value"
-          ]
-        },
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      }
-    },
-    {
-      "type": "row",
-      "title": "Rendimiento",
-      "id": 16,
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 31
-      },
-      "panels": []
-    },
-    {
-      "type": "stat",
-      "title": "LCP p75",
-      "id": 17,
-      "datasource": {
-        "type": "loki",
-        "uid": "${DS_LOKI}"
-      },
-      "description": "Largest Contentful Paint. Bueno < 2,5 s",
-      "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 0,
-        "y": 32
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "quantile_over_time(0.75, $selector | logfmt | kind=\"measurement\" | type=\"web-vitals\" | lcp!=\"\" | unwrap lcp | __error__=\"\" [$__range]) by ()",
-          "legendFormat": "",
-          "queryType": "instant",
-          "editorMode": "code"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "ms",
-          "decimals": 0,
-          "noValue": "0",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "orange",
-                "value": 2500
-              },
-              {
-                "color": "red",
-                "value": 4000
-              }
-            ]
-          },
-          "color": {
-            "mode": "thresholds"
-          }
-        },
-        "overrides": []
-      },
-      "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "colorMode": "value",
-        "graphMode": "none",
-        "textMode": "value",
-        "justifyMode": "center",
-        "orientation": "auto"
-      }
-    },
-    {
-      "type": "stat",
-      "title": "FCP p75",
-      "id": 18,
-      "datasource": {
-        "type": "loki",
-        "uid": "${DS_LOKI}"
-      },
-      "description": "First Contentful Paint. Bueno < 1,8 s",
-      "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 5,
-        "y": 32
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "quantile_over_time(0.75, $selector | logfmt | kind=\"measurement\" | type=\"web-vitals\" | fcp!=\"\" | unwrap fcp | __error__=\"\" [$__range]) by ()",
-          "legendFormat": "",
-          "queryType": "instant",
-          "editorMode": "code"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "ms",
-          "decimals": 0,
-          "noValue": "0",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "orange",
-                "value": 1800
-              },
-              {
-                "color": "red",
-                "value": 3000
-              }
-            ]
-          },
-          "color": {
-            "mode": "thresholds"
-          }
-        },
-        "overrides": []
-      },
-      "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "colorMode": "value",
-        "graphMode": "none",
-        "textMode": "value",
-        "justifyMode": "center",
-        "orientation": "auto"
-      }
-    },
-    {
-      "type": "stat",
-      "title": "INP p75",
-      "id": 19,
-      "datasource": {
-        "type": "loki",
-        "uid": "${DS_LOKI}"
-      },
-      "description": "Interaction to Next Paint. Bueno < 200 ms",
-      "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 10,
-        "y": 32
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "quantile_over_time(0.75, $selector | logfmt | kind=\"measurement\" | type=\"web-vitals\" | inp!=\"\" | unwrap inp | __error__=\"\" [$__range]) by ()",
-          "legendFormat": "",
-          "queryType": "instant",
-          "editorMode": "code"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "ms",
-          "decimals": 0,
-          "noValue": "0",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "orange",
-                "value": 200
-              },
-              {
-                "color": "red",
-                "value": 500
-              }
-            ]
-          },
-          "color": {
-            "mode": "thresholds"
-          }
-        },
-        "overrides": []
-      },
-      "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "colorMode": "value",
-        "graphMode": "none",
-        "textMode": "value",
-        "justifyMode": "center",
-        "orientation": "auto"
-      }
-    },
-    {
-      "type": "stat",
-      "title": "CLS p75",
-      "id": 20,
-      "datasource": {
-        "type": "loki",
-        "uid": "${DS_LOKI}"
-      },
-      "description": "Cumulative Layout Shift. Bueno < 0,1",
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 15,
-        "y": 32
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "quantile_over_time(0.75, $selector | logfmt | kind=\"measurement\" | type=\"web-vitals\" | cls!=\"\" | unwrap cls | __error__=\"\" [$__range]) by ()",
-          "legendFormat": "",
-          "queryType": "instant",
-          "editorMode": "code"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "none",
-          "decimals": 3,
-          "noValue": "0",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "orange",
-                "value": 0.1
-              },
-              {
-                "color": "red",
-                "value": 0.25
-              }
-            ]
-          },
-          "color": {
-            "mode": "thresholds"
-          }
-        },
-        "overrides": []
-      },
-      "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "colorMode": "value",
-        "graphMode": "none",
-        "textMode": "value",
-        "justifyMode": "center",
-        "orientation": "auto"
-      }
-    },
-    {
-      "type": "stat",
-      "title": "TTFB p75",
-      "id": 21,
-      "datasource": {
-        "type": "loki",
-        "uid": "${DS_LOKI}"
-      },
-      "description": "Time To First Byte",
-      "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 19,
-        "y": 32
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "quantile_over_time(0.75, $selector | logfmt | kind=\"measurement\" | type=\"page_load\" | ttfb_ms!=\"\" | unwrap ttfb_ms | __error__=\"\" [$__range]) by ()",
-          "legendFormat": "",
-          "queryType": "instant",
-          "editorMode": "code"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "ms",
-          "decimals": 0,
-          "noValue": "0",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "orange",
-                "value": 800
-              },
-              {
-                "color": "red",
-                "value": 1800
-              }
-            ]
-          },
-          "color": {
-            "mode": "thresholds"
-          }
-        },
-        "overrides": []
-      },
-      "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "colorMode": "value",
-        "graphMode": "none",
-        "textMode": "value",
-        "justifyMode": "center",
-        "orientation": "auto"
-      }
-    },
-    {
-      "type": "timeseries",
-      "title": "Tiempos de carga (p50 / p75)",
-      "id": 22,
-      "datasource": {
-        "type": "loki",
-        "uid": "${DS_LOKI}"
-      },
-      "description": "",
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 36
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "quantile_over_time(0.5, $selector | logfmt | kind=\"measurement\" | type=\"page_load\" | load_ms!=\"\" | unwrap load_ms | __error__=\"\" [$__interval]) by ()",
-          "legendFormat": "Carga completa p50",
-          "queryType": "range",
-          "editorMode": "code"
-        },
-        {
-          "refId": "B",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "quantile_over_time(0.75, $selector | logfmt | kind=\"measurement\" | type=\"page_load\" | load_ms!=\"\" | unwrap load_ms | __error__=\"\" [$__interval]) by ()",
-          "legendFormat": "Carga completa p75",
-          "queryType": "range",
-          "editorMode": "code"
-        },
-        {
-          "refId": "C",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "quantile_over_time(0.75, $selector | logfmt | kind=\"measurement\" | type=\"page_load\" | dom_ready_ms!=\"\" | unwrap dom_ready_ms | __error__=\"\" [$__interval]) by ()",
-          "legendFormat": "DOM listo p75",
-          "queryType": "range",
-          "editorMode": "code"
-        },
-        {
-          "refId": "D",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "quantile_over_time(0.75, $selector | logfmt | kind=\"measurement\" | type=\"page_load\" | ttfb_ms!=\"\" | unwrap ttfb_ms | __error__=\"\" [$__interval]) by ()",
-          "legendFormat": "TTFB p75",
-          "queryType": "range",
-          "editorMode": "code"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "ms",
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "drawStyle": "line",
-            "fillOpacity": 15,
-            "lineWidth": 2,
-            "showPoints": "never",
-            "spanNulls": true,
-            "barAlignment": 0,
-            "stacking": {
-              "mode": "none"
-            }
-          }
-        },
-        "overrides": []
-      },
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "interval": "1h"
-    },
-    {
-      "type": "timeseries",
-      "title": "Web Vitals p75",
-      "id": 23,
-      "datasource": {
-        "type": "loki",
-        "uid": "${DS_LOKI}"
-      },
-      "description": "",
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 36
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "quantile_over_time(0.75, $selector | logfmt | kind=\"measurement\" | type=\"web-vitals\" | lcp!=\"\" | unwrap lcp | __error__=\"\" [$__interval]) by ()",
-          "legendFormat": "LCP",
-          "queryType": "range",
-          "editorMode": "code"
-        },
-        {
-          "refId": "B",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "quantile_over_time(0.75, $selector | logfmt | kind=\"measurement\" | type=\"web-vitals\" | fcp!=\"\" | unwrap fcp | __error__=\"\" [$__interval]) by ()",
-          "legendFormat": "FCP",
-          "queryType": "range",
-          "editorMode": "code"
-        },
-        {
-          "refId": "C",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "quantile_over_time(0.75, $selector | logfmt | kind=\"measurement\" | type=\"web-vitals\" | inp!=\"\" | unwrap inp | __error__=\"\" [$__interval]) by ()",
-          "legendFormat": "INP",
-          "queryType": "range",
-          "editorMode": "code"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "ms",
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "drawStyle": "line",
-            "fillOpacity": 15,
-            "lineWidth": 2,
-            "showPoints": "never",
-            "spanNulls": true,
-            "barAlignment": 0,
-            "stacking": {
-              "mode": "none"
-            }
-          }
-        },
-        "overrides": []
-      },
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "interval": "1h"
-    },
-    {
-      "type": "row",
-      "title": "Errores",
-      "id": 24,
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 44
-      },
-      "panels": []
-    },
-    {
-      "type": "timeseries",
-      "title": "Errores JS en el tiempo",
-      "id": 25,
-      "datasource": {
-        "type": "loki",
-        "uid": "${DS_LOKI}"
-      },
-      "description": "",
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 45
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "sum by (type) (count_over_time($selector | logfmt | kind=\"exception\" [$__interval]))",
-          "legendFormat": "{{type}}",
-          "queryType": "range",
-          "editorMode": "code"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short",
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "drawStyle": "bars",
-            "fillOpacity": 60,
-            "lineWidth": 2,
-            "showPoints": "never",
-            "spanNulls": true,
-            "barAlignment": 0,
-            "stacking": {
-              "mode": "none"
-            }
-          }
-        },
-        "overrides": []
-      },
-      "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "interval": "1h"
-    },
-    {
-      "type": "bargauge",
-      "title": "Errores por navegador",
-      "id": 26,
-      "datasource": {
-        "type": "loki",
-        "uid": "${DS_LOKI}"
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 45
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "sum by (browser_name) (count_over_time($selector | logfmt | kind=\"exception\" [$__range]))",
-          "legendFormat": "{{browser_name}}",
-          "queryType": "instant",
-          "editorMode": "code"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "continuous-GrYlRd"
-          },
-          "min": 0,
-          "unit": "short",
-          "decimals": 0
-        },
-        "overrides": []
-      },
-      "options": {
-        "orientation": "horizontal",
-        "displayMode": "gradient",
-        "showUnfilled": true,
-        "valueMode": "color",
-        "namePlacement": "left",
-        "sizing": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        }
-      }
-    },
-    {
-      "type": "logs",
-      "title": "Últimos errores",
-      "id": 27,
-      "datasource": {
-        "type": "loki",
-        "uid": "${DS_LOKI}"
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 24,
-        "x": 0,
-        "y": 53
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "$selector | logfmt | kind=\"exception\" | line_format \"{{.type}}: {{.value}}  ·  {{.page_url}}  ·  {{.browser_name}} {{.browser_os}}\"",
-          "legendFormat": "",
-          "queryType": "range",
-          "editorMode": "code"
-        }
-      ],
-      "options": {
-        "showTime": true,
-        "wrapLogMessage": true,
-        "sortOrder": "Descending",
-        "enableLogDetails": true,
-        "dedupStrategy": "none",
-        "prettifyLogMessage": false
-      }
-    },
-    {
-      "type": "row",
-      "title": "Interacción con el CV",
-      "id": 28,
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 62
-      },
-      "panels": []
-    },
-    {
-      "type": "bargauge",
-      "title": "Empleos desplegados",
-      "id": 29,
-      "datasource": {
-        "type": "loki",
-        "uid": "${DS_LOKI}"
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 0,
-        "y": 63
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "sum by (event_data_job) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"job_toggle\" | event_data_state=\"open\" [$__range]))",
-          "legendFormat": "{{event_data_job}}",
-          "queryType": "instant",
-          "editorMode": "code"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "continuous-GrYlRd"
-          },
-          "min": 0,
-          "unit": "short",
-          "decimals": 0
-        },
-        "overrides": []
-      },
-      "options": {
-        "orientation": "horizontal",
-        "displayMode": "gradient",
-        "showUnfilled": true,
-        "valueMode": "color",
-        "namePlacement": "left",
-        "sizing": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        }
-      }
-    },
-    {
-      "type": "bargauge",
-      "title": "Clics en llamadas a la acción",
-      "id": 30,
-      "datasource": {
-        "type": "loki",
-        "uid": "${DS_LOKI}"
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 8,
-        "y": 63
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "sum by (event_data_target) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"cta_click\" [$__range]))",
-          "legendFormat": "{{event_data_target}}",
-          "queryType": "instant",
-          "editorMode": "code"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "continuous-GrYlRd"
-          },
-          "min": 0,
-          "unit": "short",
-          "decimals": 0
-        },
-        "overrides": []
-      },
-      "options": {
-        "orientation": "horizontal",
-        "displayMode": "gradient",
-        "showUnfilled": true,
-        "valueMode": "color",
-        "namePlacement": "left",
-        "sizing": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        }
-      }
-    },
-    {
-      "type": "bargauge",
-      "title": "Secciones vistas",
-      "id": 31,
-      "datasource": {
-        "type": "loki",
-        "uid": "${DS_LOKI}"
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 16,
-        "y": 63
-      },
-      "targets": [
-        {
-          "refId": "A",
-          "datasource": {
-            "type": "loki",
-            "uid": "${DS_LOKI}"
-          },
-          "expr": "sum by (event_data_section) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"section_view\" [$__range]))",
-          "legendFormat": "{{event_data_section}}",
-          "queryType": "instant",
-          "editorMode": "code"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "continuous-GrYlRd"
-          },
-          "min": 0,
-          "unit": "short",
-          "decimals": 0
-        },
-        "overrides": []
-      },
-      "options": {
-        "orientation": "horizontal",
-        "displayMode": "gradient",
-        "showUnfilled": true,
-        "valueMode": "color",
-        "namePlacement": "left",
-        "sizing": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        }
-      }
-    }
+    "description": "Selector de stream de Loki con los datos de Faro. Ajústalo si en Explore tus logs tienen otras etiquetas."
+   }
   ]
+ },
+ "annotations": {
+  "list": []
+ },
+ "panels": [
+  {
+   "type": "row",
+   "title": "Resumen",
+   "id": 1,
+   "collapsed": false,
+   "gridPos": {
+    "h": 1,
+    "w": 24,
+    "x": 0,
+    "y": 0
+   },
+   "panels": []
+  },
+  {
+   "type": "stat",
+   "title": "Visitas",
+   "id": 2,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "description": "Páginas vistas en el rango seleccionado",
+   "gridPos": {
+    "h": 4,
+    "w": 6,
+    "x": 0,
+    "y": 1
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "sum(count_over_time($selector | logfmt | kind=\"event\" | event_name=\"page_view\" [$__range]))",
+     "legendFormat": "",
+     "queryType": "instant",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short",
+     "decimals": 0,
+     "noValue": "0",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "green",
+        "value": null
+       }
+      ]
+     },
+     "color": {
+      "mode": "thresholds"
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "value",
+    "graphMode": "none",
+    "textMode": "value",
+    "justifyMode": "center",
+    "orientation": "auto"
+   }
+  },
+  {
+   "type": "stat",
+   "title": "Visitantes (sesiones únicas)",
+   "id": 3,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "description": "",
+   "gridPos": {
+    "h": 4,
+    "w": 6,
+    "x": 6,
+    "y": 1
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "count(sum by (session_id) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"page_view\" [$__range])))",
+     "legendFormat": "",
+     "queryType": "instant",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short",
+     "decimals": 0,
+     "noValue": "0",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "green",
+        "value": null
+       }
+      ]
+     },
+     "color": {
+      "mode": "thresholds"
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "value",
+    "graphMode": "none",
+    "textMode": "value",
+    "justifyMode": "center",
+    "orientation": "auto"
+   }
+  },
+  {
+   "type": "stat",
+   "title": "Errores JS",
+   "id": 4,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "description": "",
+   "gridPos": {
+    "h": 4,
+    "w": 6,
+    "x": 12,
+    "y": 1
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "sum(count_over_time($selector | logfmt | kind=\"exception\" [$__range]))",
+     "legendFormat": "",
+     "queryType": "instant",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short",
+     "decimals": 0,
+     "noValue": "0",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "green",
+        "value": null
+       },
+       {
+        "color": "red",
+        "value": 1
+       }
+      ]
+     },
+     "color": {
+      "mode": "thresholds"
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "value",
+    "graphMode": "none",
+    "textMode": "value",
+    "justifyMode": "center",
+    "orientation": "auto"
+   }
+  },
+  {
+   "type": "stat",
+   "title": "Tiempo de carga p75",
+   "id": 5,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "description": "Percentil 75 de loadEventEnd (Navigation Timing)",
+   "gridPos": {
+    "h": 4,
+    "w": 6,
+    "x": 18,
+    "y": 1
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "quantile_over_time(0.75, $selector | logfmt | kind=\"measurement\" | type=\"page_load\" | load_ms!=\"\" | unwrap load_ms | __error__=\"\" [$__range]) by ()",
+     "legendFormat": "",
+     "queryType": "instant",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "ms",
+     "decimals": 0,
+     "noValue": "0",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "green",
+        "value": null
+       },
+       {
+        "color": "orange",
+        "value": 2500
+       },
+       {
+        "color": "red",
+        "value": 4000
+       }
+      ]
+     },
+     "color": {
+      "mode": "thresholds"
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "value",
+    "graphMode": "none",
+    "textMode": "value",
+    "justifyMode": "center",
+    "orientation": "auto"
+   }
+  },
+  {
+   "type": "row",
+   "title": "Tráfico",
+   "id": 6,
+   "collapsed": false,
+   "gridPos": {
+    "h": 1,
+    "w": 24,
+    "x": 0,
+    "y": 5
+   },
+   "panels": []
+  },
+  {
+   "type": "timeseries",
+   "title": "Visitas diarias",
+   "id": 7,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "description": "",
+   "gridPos": {
+    "h": 8,
+    "w": 16,
+    "x": 0,
+    "y": 6
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "sum(count_over_time($selector | logfmt | kind=\"event\" | event_name=\"page_view\" [$__interval]))",
+     "legendFormat": "Visitas",
+     "queryType": "range",
+     "editorMode": "code"
+    },
+    {
+     "refId": "B",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "count(sum by (session_id) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"page_view\" [$__interval])))",
+     "legendFormat": "Visitantes",
+     "queryType": "range",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short",
+     "color": {
+      "mode": "palette-classic"
+     },
+     "custom": {
+      "drawStyle": "bars",
+      "fillOpacity": 60,
+      "lineWidth": 2,
+      "showPoints": "never",
+      "spanNulls": true,
+      "barAlignment": 0,
+      "stacking": {
+       "mode": "none"
+      }
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom",
+     "showLegend": true
+    },
+    "tooltip": {
+     "mode": "multi",
+     "sort": "desc"
+    }
+   },
+   "interval": "1d"
+  },
+  {
+   "type": "bargauge",
+   "title": "Procedencia (referrer)",
+   "id": 8,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "gridPos": {
+    "h": 8,
+    "w": 8,
+    "x": 16,
+    "y": 6
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "topk(10, sum by (event_data_referrer) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"page_view\" [$__range])))",
+     "legendFormat": "{{event_data_referrer}}",
+     "queryType": "instant",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "color": {
+      "mode": "continuous-GrYlRd"
+     },
+     "min": 0,
+     "unit": "short",
+     "decimals": 0
+    },
+    "overrides": []
+   },
+   "options": {
+    "orientation": "horizontal",
+    "displayMode": "gradient",
+    "showUnfilled": true,
+    "valueMode": "color",
+    "namePlacement": "left",
+    "sizing": "auto",
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    }
+   }
+  },
+  {
+   "type": "row",
+   "title": "Dispositivos",
+   "id": 9,
+   "collapsed": false,
+   "gridPos": {
+    "h": 1,
+    "w": 24,
+    "x": 0,
+    "y": 14
+   },
+   "panels": []
+  },
+  {
+   "type": "piechart",
+   "title": "Tipo de dispositivo",
+   "id": 10,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "gridPos": {
+    "h": 8,
+    "w": 8,
+    "x": 0,
+    "y": 15
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "sum by (event_data_device_type) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"page_view\" [$__range]))",
+     "legendFormat": "{{event_data_device_type}}",
+     "queryType": "instant",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "color": {
+      "mode": "palette-classic"
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "pieType": "donut",
+    "displayLabels": [
+     "percent"
+    ],
+    "legend": {
+     "displayMode": "table",
+     "placement": "right",
+     "showLegend": true,
+     "values": [
+      "value"
+     ]
+    },
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "tooltip": {
+     "mode": "single"
+    }
+   }
+  },
+  {
+   "type": "piechart",
+   "title": "Navegador",
+   "id": 11,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "gridPos": {
+    "h": 8,
+    "w": 8,
+    "x": 8,
+    "y": 15
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "sum by (browser_name) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"page_view\" [$__range]))",
+     "legendFormat": "{{browser_name}}",
+     "queryType": "instant",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "color": {
+      "mode": "palette-classic"
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "pieType": "donut",
+    "displayLabels": [
+     "percent"
+    ],
+    "legend": {
+     "displayMode": "table",
+     "placement": "right",
+     "showLegend": true,
+     "values": [
+      "value"
+     ]
+    },
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "tooltip": {
+     "mode": "single"
+    }
+   }
+  },
+  {
+   "type": "piechart",
+   "title": "Sistema operativo",
+   "id": 12,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "gridPos": {
+    "h": 8,
+    "w": 8,
+    "x": 16,
+    "y": 15
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "sum by (browser_os) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"page_view\" [$__range]))",
+     "legendFormat": "{{browser_os}}",
+     "queryType": "instant",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "color": {
+      "mode": "palette-classic"
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "pieType": "donut",
+    "displayLabels": [
+     "percent"
+    ],
+    "legend": {
+     "displayMode": "table",
+     "placement": "right",
+     "showLegend": true,
+     "values": [
+      "value"
+     ]
+    },
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "tooltip": {
+     "mode": "single"
+    }
+   }
+  },
+  {
+   "type": "bargauge",
+   "title": "Resolución de pantalla",
+   "id": 13,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "gridPos": {
+    "h": 8,
+    "w": 8,
+    "x": 0,
+    "y": 23
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "topk(10, sum by (event_data_screen) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"page_view\" [$__range])))",
+     "legendFormat": "{{event_data_screen}}",
+     "queryType": "instant",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "color": {
+      "mode": "continuous-GrYlRd"
+     },
+     "min": 0,
+     "unit": "short",
+     "decimals": 0
+    },
+    "overrides": []
+   },
+   "options": {
+    "orientation": "horizontal",
+    "displayMode": "gradient",
+    "showUnfilled": true,
+    "valueMode": "color",
+    "namePlacement": "left",
+    "sizing": "auto",
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    }
+   }
+  },
+  {
+   "type": "piechart",
+   "title": "Idioma",
+   "id": 14,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "gridPos": {
+    "h": 8,
+    "w": 8,
+    "x": 8,
+    "y": 23
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "sum by (event_data_lang) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"page_view\" [$__range]))",
+     "legendFormat": "{{event_data_lang}}",
+     "queryType": "instant",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "color": {
+      "mode": "palette-classic"
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "pieType": "donut",
+    "displayLabels": [
+     "percent"
+    ],
+    "legend": {
+     "displayMode": "table",
+     "placement": "right",
+     "showLegend": true,
+     "values": [
+      "value"
+     ]
+    },
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "tooltip": {
+     "mode": "single"
+    }
+   }
+  },
+  {
+   "type": "piechart",
+   "title": "Tema claro / oscuro",
+   "id": 15,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "gridPos": {
+    "h": 8,
+    "w": 8,
+    "x": 16,
+    "y": 23
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "sum by (event_data_color_scheme) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"page_view\" [$__range]))",
+     "legendFormat": "{{event_data_color_scheme}}",
+     "queryType": "instant",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "color": {
+      "mode": "palette-classic"
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "pieType": "donut",
+    "displayLabels": [
+     "percent"
+    ],
+    "legend": {
+     "displayMode": "table",
+     "placement": "right",
+     "showLegend": true,
+     "values": [
+      "value"
+     ]
+    },
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "tooltip": {
+     "mode": "single"
+    }
+   }
+  },
+  {
+   "type": "row",
+   "title": "Rendimiento",
+   "id": 16,
+   "collapsed": false,
+   "gridPos": {
+    "h": 1,
+    "w": 24,
+    "x": 0,
+    "y": 31
+   },
+   "panels": []
+  },
+  {
+   "type": "stat",
+   "title": "LCP p75",
+   "id": 17,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "description": "Largest Contentful Paint. Bueno < 2,5 s",
+   "gridPos": {
+    "h": 4,
+    "w": 5,
+    "x": 0,
+    "y": 32
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "quantile_over_time(0.75, $selector | logfmt | kind=\"measurement\" | type=\"web-vitals\" | lcp!=\"\" | unwrap lcp | __error__=\"\" [$__range]) by ()",
+     "legendFormat": "",
+     "queryType": "instant",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "ms",
+     "decimals": 0,
+     "noValue": "0",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "green",
+        "value": null
+       },
+       {
+        "color": "orange",
+        "value": 2500
+       },
+       {
+        "color": "red",
+        "value": 4000
+       }
+      ]
+     },
+     "color": {
+      "mode": "thresholds"
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "value",
+    "graphMode": "none",
+    "textMode": "value",
+    "justifyMode": "center",
+    "orientation": "auto"
+   }
+  },
+  {
+   "type": "stat",
+   "title": "FCP p75",
+   "id": 18,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "description": "First Contentful Paint. Bueno < 1,8 s",
+   "gridPos": {
+    "h": 4,
+    "w": 5,
+    "x": 5,
+    "y": 32
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "quantile_over_time(0.75, $selector | logfmt | kind=\"measurement\" | type=\"web-vitals\" | fcp!=\"\" | unwrap fcp | __error__=\"\" [$__range]) by ()",
+     "legendFormat": "",
+     "queryType": "instant",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "ms",
+     "decimals": 0,
+     "noValue": "0",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "green",
+        "value": null
+       },
+       {
+        "color": "orange",
+        "value": 1800
+       },
+       {
+        "color": "red",
+        "value": 3000
+       }
+      ]
+     },
+     "color": {
+      "mode": "thresholds"
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "value",
+    "graphMode": "none",
+    "textMode": "value",
+    "justifyMode": "center",
+    "orientation": "auto"
+   }
+  },
+  {
+   "type": "stat",
+   "title": "INP p75",
+   "id": 19,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "description": "Interaction to Next Paint. Bueno < 200 ms",
+   "gridPos": {
+    "h": 4,
+    "w": 5,
+    "x": 10,
+    "y": 32
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "quantile_over_time(0.75, $selector | logfmt | kind=\"measurement\" | type=\"web-vitals\" | inp!=\"\" | unwrap inp | __error__=\"\" [$__range]) by ()",
+     "legendFormat": "",
+     "queryType": "instant",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "ms",
+     "decimals": 0,
+     "noValue": "0",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "green",
+        "value": null
+       },
+       {
+        "color": "orange",
+        "value": 200
+       },
+       {
+        "color": "red",
+        "value": 500
+       }
+      ]
+     },
+     "color": {
+      "mode": "thresholds"
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "value",
+    "graphMode": "none",
+    "textMode": "value",
+    "justifyMode": "center",
+    "orientation": "auto"
+   }
+  },
+  {
+   "type": "stat",
+   "title": "CLS p75",
+   "id": 20,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "description": "Cumulative Layout Shift. Bueno < 0,1",
+   "gridPos": {
+    "h": 4,
+    "w": 4,
+    "x": 15,
+    "y": 32
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "quantile_over_time(0.75, $selector | logfmt | kind=\"measurement\" | type=\"web-vitals\" | cls!=\"\" | unwrap cls | __error__=\"\" [$__range]) by ()",
+     "legendFormat": "",
+     "queryType": "instant",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "none",
+     "decimals": 3,
+     "noValue": "0",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "green",
+        "value": null
+       },
+       {
+        "color": "orange",
+        "value": 0.1
+       },
+       {
+        "color": "red",
+        "value": 0.25
+       }
+      ]
+     },
+     "color": {
+      "mode": "thresholds"
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "value",
+    "graphMode": "none",
+    "textMode": "value",
+    "justifyMode": "center",
+    "orientation": "auto"
+   }
+  },
+  {
+   "type": "stat",
+   "title": "TTFB p75",
+   "id": 21,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "description": "Time To First Byte",
+   "gridPos": {
+    "h": 4,
+    "w": 5,
+    "x": 19,
+    "y": 32
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "quantile_over_time(0.75, $selector | logfmt | kind=\"measurement\" | type=\"page_load\" | ttfb_ms!=\"\" | unwrap ttfb_ms | __error__=\"\" [$__range]) by ()",
+     "legendFormat": "",
+     "queryType": "instant",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "ms",
+     "decimals": 0,
+     "noValue": "0",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "green",
+        "value": null
+       },
+       {
+        "color": "orange",
+        "value": 800
+       },
+       {
+        "color": "red",
+        "value": 1800
+       }
+      ]
+     },
+     "color": {
+      "mode": "thresholds"
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    },
+    "colorMode": "value",
+    "graphMode": "none",
+    "textMode": "value",
+    "justifyMode": "center",
+    "orientation": "auto"
+   }
+  },
+  {
+   "type": "timeseries",
+   "title": "Tiempos de carga (p50 / p75)",
+   "id": 22,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "description": "",
+   "gridPos": {
+    "h": 8,
+    "w": 12,
+    "x": 0,
+    "y": 36
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "quantile_over_time(0.5, $selector | logfmt | kind=\"measurement\" | type=\"page_load\" | load_ms!=\"\" | unwrap load_ms | __error__=\"\" [$__interval]) by ()",
+     "legendFormat": "Carga completa p50",
+     "queryType": "range",
+     "editorMode": "code"
+    },
+    {
+     "refId": "B",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "quantile_over_time(0.75, $selector | logfmt | kind=\"measurement\" | type=\"page_load\" | load_ms!=\"\" | unwrap load_ms | __error__=\"\" [$__interval]) by ()",
+     "legendFormat": "Carga completa p75",
+     "queryType": "range",
+     "editorMode": "code"
+    },
+    {
+     "refId": "C",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "quantile_over_time(0.75, $selector | logfmt | kind=\"measurement\" | type=\"page_load\" | dom_ready_ms!=\"\" | unwrap dom_ready_ms | __error__=\"\" [$__interval]) by ()",
+     "legendFormat": "DOM listo p75",
+     "queryType": "range",
+     "editorMode": "code"
+    },
+    {
+     "refId": "D",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "quantile_over_time(0.75, $selector | logfmt | kind=\"measurement\" | type=\"page_load\" | ttfb_ms!=\"\" | unwrap ttfb_ms | __error__=\"\" [$__interval]) by ()",
+     "legendFormat": "TTFB p75",
+     "queryType": "range",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "ms",
+     "color": {
+      "mode": "palette-classic"
+     },
+     "custom": {
+      "drawStyle": "line",
+      "fillOpacity": 15,
+      "lineWidth": 2,
+      "showPoints": "never",
+      "spanNulls": true,
+      "barAlignment": 0,
+      "stacking": {
+       "mode": "none"
+      }
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom",
+     "showLegend": true
+    },
+    "tooltip": {
+     "mode": "multi",
+     "sort": "desc"
+    }
+   },
+   "interval": "1h"
+  },
+  {
+   "type": "timeseries",
+   "title": "Web Vitals p75",
+   "id": 23,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "description": "",
+   "gridPos": {
+    "h": 8,
+    "w": 12,
+    "x": 12,
+    "y": 36
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "quantile_over_time(0.75, $selector | logfmt | kind=\"measurement\" | type=\"web-vitals\" | lcp!=\"\" | unwrap lcp | __error__=\"\" [$__interval]) by ()",
+     "legendFormat": "LCP",
+     "queryType": "range",
+     "editorMode": "code"
+    },
+    {
+     "refId": "B",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "quantile_over_time(0.75, $selector | logfmt | kind=\"measurement\" | type=\"web-vitals\" | fcp!=\"\" | unwrap fcp | __error__=\"\" [$__interval]) by ()",
+     "legendFormat": "FCP",
+     "queryType": "range",
+     "editorMode": "code"
+    },
+    {
+     "refId": "C",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "quantile_over_time(0.75, $selector | logfmt | kind=\"measurement\" | type=\"web-vitals\" | inp!=\"\" | unwrap inp | __error__=\"\" [$__interval]) by ()",
+     "legendFormat": "INP",
+     "queryType": "range",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "ms",
+     "color": {
+      "mode": "palette-classic"
+     },
+     "custom": {
+      "drawStyle": "line",
+      "fillOpacity": 15,
+      "lineWidth": 2,
+      "showPoints": "never",
+      "spanNulls": true,
+      "barAlignment": 0,
+      "stacking": {
+       "mode": "none"
+      }
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom",
+     "showLegend": true
+    },
+    "tooltip": {
+     "mode": "multi",
+     "sort": "desc"
+    }
+   },
+   "interval": "1h"
+  },
+  {
+   "type": "row",
+   "title": "Errores",
+   "id": 24,
+   "collapsed": false,
+   "gridPos": {
+    "h": 1,
+    "w": 24,
+    "x": 0,
+    "y": 44
+   },
+   "panels": []
+  },
+  {
+   "type": "timeseries",
+   "title": "Errores JS en el tiempo",
+   "id": 25,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "description": "",
+   "gridPos": {
+    "h": 8,
+    "w": 12,
+    "x": 0,
+    "y": 45
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "sum by (type) (count_over_time($selector | logfmt | kind=\"exception\" [$__interval]))",
+     "legendFormat": "{{type}}",
+     "queryType": "range",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "short",
+     "color": {
+      "mode": "palette-classic"
+     },
+     "custom": {
+      "drawStyle": "bars",
+      "fillOpacity": 60,
+      "lineWidth": 2,
+      "showPoints": "never",
+      "spanNulls": true,
+      "barAlignment": 0,
+      "stacking": {
+       "mode": "none"
+      }
+     }
+    },
+    "overrides": []
+   },
+   "options": {
+    "legend": {
+     "displayMode": "list",
+     "placement": "bottom",
+     "showLegend": true
+    },
+    "tooltip": {
+     "mode": "multi",
+     "sort": "desc"
+    }
+   },
+   "interval": "1h"
+  },
+  {
+   "type": "bargauge",
+   "title": "Errores por navegador",
+   "id": 26,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "gridPos": {
+    "h": 8,
+    "w": 12,
+    "x": 12,
+    "y": 45
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "sum by (browser_name) (count_over_time($selector | logfmt | kind=\"exception\" [$__range]))",
+     "legendFormat": "{{browser_name}}",
+     "queryType": "instant",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "color": {
+      "mode": "continuous-GrYlRd"
+     },
+     "min": 0,
+     "unit": "short",
+     "decimals": 0
+    },
+    "overrides": []
+   },
+   "options": {
+    "orientation": "horizontal",
+    "displayMode": "gradient",
+    "showUnfilled": true,
+    "valueMode": "color",
+    "namePlacement": "left",
+    "sizing": "auto",
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    }
+   }
+  },
+  {
+   "type": "logs",
+   "title": "Últimos errores",
+   "id": 27,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "gridPos": {
+    "h": 9,
+    "w": 24,
+    "x": 0,
+    "y": 53
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "$selector | logfmt | kind=\"exception\" | line_format \"{{.type}}: {{.value}}  ·  {{.page_url}}  ·  {{.browser_name}} {{.browser_os}}\"",
+     "legendFormat": "",
+     "queryType": "range",
+     "editorMode": "code"
+    }
+   ],
+   "options": {
+    "showTime": true,
+    "wrapLogMessage": true,
+    "sortOrder": "Descending",
+    "enableLogDetails": true,
+    "dedupStrategy": "none",
+    "prettifyLogMessage": false
+   }
+  },
+  {
+   "type": "row",
+   "title": "Interacción con el CV",
+   "id": 28,
+   "collapsed": false,
+   "gridPos": {
+    "h": 1,
+    "w": 24,
+    "x": 0,
+    "y": 62
+   },
+   "panels": []
+  },
+  {
+   "type": "bargauge",
+   "title": "Empleos desplegados",
+   "id": 29,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "gridPos": {
+    "h": 8,
+    "w": 8,
+    "x": 0,
+    "y": 63
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "sum by (event_data_job) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"job_toggle\" | event_data_state=\"open\" [$__range]))",
+     "legendFormat": "{{event_data_job}}",
+     "queryType": "instant",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "color": {
+      "mode": "continuous-GrYlRd"
+     },
+     "min": 0,
+     "unit": "short",
+     "decimals": 0
+    },
+    "overrides": []
+   },
+   "options": {
+    "orientation": "horizontal",
+    "displayMode": "gradient",
+    "showUnfilled": true,
+    "valueMode": "color",
+    "namePlacement": "left",
+    "sizing": "auto",
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    }
+   }
+  },
+  {
+   "type": "bargauge",
+   "title": "Clics en llamadas a la acción",
+   "id": 30,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "gridPos": {
+    "h": 8,
+    "w": 8,
+    "x": 8,
+    "y": 63
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "sum by (event_data_target) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"cta_click\" [$__range]))",
+     "legendFormat": "{{event_data_target}}",
+     "queryType": "instant",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "color": {
+      "mode": "continuous-GrYlRd"
+     },
+     "min": 0,
+     "unit": "short",
+     "decimals": 0
+    },
+    "overrides": []
+   },
+   "options": {
+    "orientation": "horizontal",
+    "displayMode": "gradient",
+    "showUnfilled": true,
+    "valueMode": "color",
+    "namePlacement": "left",
+    "sizing": "auto",
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    }
+   }
+  },
+  {
+   "type": "bargauge",
+   "title": "Secciones vistas",
+   "id": 31,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "gridPos": {
+    "h": 8,
+    "w": 8,
+    "x": 16,
+    "y": 63
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "sum by (event_data_section) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"section_view\" [$__range]))",
+     "legendFormat": "{{event_data_section}}",
+     "queryType": "instant",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "color": {
+      "mode": "continuous-GrYlRd"
+     },
+     "min": 0,
+     "unit": "short",
+     "decimals": 0
+    },
+    "overrides": []
+   },
+   "options": {
+    "orientation": "horizontal",
+    "displayMode": "gradient",
+    "showUnfilled": true,
+    "valueMode": "color",
+    "namePlacement": "left",
+    "sizing": "auto",
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    }
+   }
+  }
+ ]
 }
