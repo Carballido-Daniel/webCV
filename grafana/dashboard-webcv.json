@@ -1718,6 +1718,316 @@
      "values": false
     }
    }
+  },
+  {
+   "type": "row",
+   "title": "Ubicación",
+   "id": 32,
+   "collapsed": false,
+   "gridPos": {
+    "h": 1,
+    "w": 24,
+    "x": 0,
+    "y": 71
+   },
+   "panels": []
+  },
+  {
+   "type": "geomap",
+   "title": "Mapa de visitas por país",
+   "id": 33,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "gridPos": {
+    "h": 9,
+    "w": 14,
+    "x": 0,
+    "y": 72
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "sum by (geo_country_iso) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"page_view\" [$__range]))",
+     "legendFormat": "{{geo_country_iso}}",
+     "queryType": "instant",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "color": {
+      "mode": "continuous-GrYlRd"
+     },
+     "unit": "short",
+     "decimals": 0
+    },
+    "overrides": []
+   },
+   "options": {
+    "basemap": {
+     "name": "Layer 0",
+     "type": "default",
+     "config": {}
+    },
+    "controls": {
+     "showZoom": true,
+     "mouseWheelZoom": true,
+     "showAttribution": true,
+     "showScale": false,
+     "showDebug": false,
+     "showMeasure": false
+    },
+    "tooltip": {
+     "mode": "details"
+    },
+    "view": {
+     "id": "fit",
+     "lat": 20,
+     "lon": 0,
+     "zoom": 2,
+     "allLayers": true
+    },
+    "layers": [
+     {
+      "type": "markers",
+      "name": "Visitas",
+      "tooltip": true,
+      "location": {
+       "mode": "lookup",
+       "lookup": "geo_country_iso",
+       "gazetteer": "public/gazetteer/countries.json"
+      },
+      "config": {
+       "showLegend": true,
+       "style": {
+        "color": {
+         "field": "Value",
+         "fixed": "dark-blue"
+        },
+        "opacity": 0.65,
+        "size": {
+         "field": "Value",
+         "fixed": 6,
+         "min": 6,
+         "max": 28
+        },
+        "symbol": {
+         "mode": "fixed",
+         "fixed": "img/icons/marker/circle.svg"
+        },
+        "textConfig": {
+         "fontSize": 12,
+         "offsetX": 0,
+         "offsetY": 0,
+         "textAlign": "center",
+         "textBaseline": "middle"
+        }
+       }
+      }
+     }
+    ]
+   }
+  },
+  {
+   "type": "bargauge",
+   "title": "Top países",
+   "id": 34,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "gridPos": {
+    "h": 9,
+    "w": 10,
+    "x": 14,
+    "y": 72
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "topk(10, sum by (geo_country_iso) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"page_view\" [$__range])))",
+     "legendFormat": "{{geo_country_iso}}",
+     "queryType": "instant",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "color": {
+      "mode": "continuous-GrYlRd"
+     },
+     "min": 0,
+     "unit": "short",
+     "decimals": 0,
+     "mappings": [
+      {
+       "type": "value",
+       "options": {
+        "": {
+         "text": "(sin dato)",
+         "index": 0
+        }
+       }
+      }
+     ]
+    },
+    "overrides": []
+   },
+   "options": {
+    "orientation": "horizontal",
+    "displayMode": "gradient",
+    "showUnfilled": true,
+    "valueMode": "color",
+    "namePlacement": "left",
+    "sizing": "auto",
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    }
+   }
+  },
+  {
+   "type": "bargauge",
+   "title": "Top ciudades",
+   "id": 35,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "gridPos": {
+    "h": 8,
+    "w": 12,
+    "x": 0,
+    "y": 81
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "topk(10, sum by (geo_city) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"page_view\" [$__range])))",
+     "legendFormat": "{{geo_city}}",
+     "queryType": "instant",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "color": {
+      "mode": "continuous-GrYlRd"
+     },
+     "min": 0,
+     "unit": "short",
+     "decimals": 0,
+     "mappings": [
+      {
+       "type": "value",
+       "options": {
+        "": {
+         "text": "(sin dato)",
+         "index": 0
+        }
+       }
+      }
+     ]
+    },
+    "overrides": []
+   },
+   "options": {
+    "orientation": "horizontal",
+    "displayMode": "gradient",
+    "showUnfilled": true,
+    "valueMode": "color",
+    "namePlacement": "left",
+    "sizing": "auto",
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    }
+   }
+  },
+  {
+   "type": "bargauge",
+   "title": "Top provincias",
+   "id": 36,
+   "datasource": {
+    "type": "loki",
+    "uid": "${DS_LOKI}"
+   },
+   "gridPos": {
+    "h": 8,
+    "w": 12,
+    "x": 12,
+    "y": 81
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "loki",
+      "uid": "${DS_LOKI}"
+     },
+     "expr": "topk(10, sum by (geo_subdivision_iso) (count_over_time($selector | logfmt | kind=\"event\" | event_name=\"page_view\" [$__range])))",
+     "legendFormat": "{{geo_subdivision_iso}}",
+     "queryType": "instant",
+     "editorMode": "code"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "color": {
+      "mode": "continuous-GrYlRd"
+     },
+     "min": 0,
+     "unit": "short",
+     "decimals": 0,
+     "mappings": [
+      {
+       "type": "value",
+       "options": {
+        "": {
+         "text": "(sin dato)",
+         "index": 0
+        }
+       }
+      }
+     ]
+    },
+    "overrides": []
+   },
+   "options": {
+    "orientation": "horizontal",
+    "displayMode": "gradient",
+    "showUnfilled": true,
+    "valueMode": "color",
+    "namePlacement": "left",
+    "sizing": "auto",
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    }
+   }
   }
  ]
 }

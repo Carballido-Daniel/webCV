@@ -405,3 +405,108 @@ h1, h2, h3 { line-height: 1.15; margin: 0; }
   .job__chev { display: none; }
   .job, .card, .edu { break-inside: avoid; }
 }
+
+/* =========================================================
+   v2 · Cinta de logos, rejilla de tecnologías, chips con logo
+   ========================================================= */
+
+/* ---------- MARQUEE (cinta de logos) ---------- */
+.marquee {
+  overflow: hidden;
+  padding-block: 20px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--bg-2) 60%, transparent), transparent);
+  border-bottom: 1px solid var(--border);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee__track {
+  display: flex;
+  width: max-content;
+  gap: 14px;
+  animation: marquee 48s linear infinite;
+}
+.marquee:hover .marquee__track { animation-play-state: paused; }
+.marquee__item {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 10px 18px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+  color: var(--text-2);
+  font: 600 13px/1 var(--font-mono);
+  letter-spacing: .04em;
+  white-space: nowrap;
+  transition: border-color .2s, color .2s, transform .2s;
+}
+.marquee__item:hover { color: var(--text); border-color: var(--accent); transform: translateY(-2px); }
+.marquee__item img { height: 24px; width: 24px; object-fit: contain; }
+@keyframes marquee { to { transform: translateX(calc(-50% - 7px)); } }
+
+/* ---------- REJILLA DE TECNOLOGÍAS ---------- */
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(116px, 1fr));
+  gap: 12px;
+  margin: 8px 0 28px;
+}
+.tech-tile {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  padding: 22px 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  transition: transform .2s, border-color .2s, box-shadow .2s;
+}
+.tech-tile:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+  box-shadow: var(--shadow);
+}
+.tech-tile img {
+  height: 40px; width: 40px; object-fit: contain;
+  transition: transform .25s;
+}
+.tech-tile:hover img { transform: scale(1.08); }
+.tech-tile span {
+  font: 600 12px/1.2 var(--font-mono);
+  color: var(--text-2); text-align: center; letter-spacing: .02em;
+}
+
+/* ---------- CHIPS CON LOGO ---------- */
+.tech {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 6px 12px 6px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  font: 600 12.5px/1 var(--font-mono);
+  color: var(--text);
+  transition: border-color .2s, transform .2s;
+}
+.tech:hover { border-color: var(--accent); transform: translateY(-1px); }
+.tech img { height: 17px; width: 17px; object-fit: contain; flex: none; }
+.tech--plain { color: var(--text-2); padding-left: 12px; }
+.tech--plain::before {
+  content: ""; width: 6px; height: 6px; border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 70%, transparent); flex: none;
+}
+ul.chips:has(.tech) { gap: 9px; }
+
+/* ---------- CONTADORES ANIMADOS ---------- */
+.stats dt { font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track { animation: none; }
+  .marquee { overflow-x: auto; }
+}
+
+@media (max-width: 640px) {
+  .tech-grid { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); }
+  .tech-tile img { height: 34px; width: 34px; }
+}
+
+/* ---------- IMPRESIÓN: ocultar cinta ---------- */
+@media print {
+  .marquee { display: none !important; }
+  .tech-tile, .tech { break-inside: avoid; }
+}
